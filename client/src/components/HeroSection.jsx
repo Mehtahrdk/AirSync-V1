@@ -16,7 +16,7 @@ const HeroSection = () => {
     try {
         // CALL THE BACKEND (Ensure port 3000 is running)
         // We use hardcoded indices (0-3) for this demo to hit the Segment Tree
-        const response = await etch(`${API_BASE_URL}/flights/cheapest?startIndex=0&endIndex=3`);
+        const response = await fetch(`${API_BASE_URL}/flights/cheapest?startIndex=0&endIndex=3`);
         const data = await response.json();
         
         const end = performance.now(); // Stop timer
