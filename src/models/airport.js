@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Airport extends Model {
     /**
@@ -11,43 +10,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.City,{
-        foreignKey : 'cityId',
-        onDelete:'CASCADE'
-    });
-
-    this.hasMany(models.Flight,{
-      foreignKey:'departureAirportId',
-      onDelete:'CASCADE'
-    });
-
-    this.hasMany(models.Flight,{
-      foreignKey:'arrivalAirportId',
-      onDelete:'CASCADE'
-    });
-
+      this.belongsTo(models.City, {
+        foreignKey: 'cityId', // Explicitly point to the column below
+        onDelete: 'CASCADE'
+      });
     }
   }
   Airport.init({
     name: {
-      type:DataTypes.STRING,
-      allowNull:false,
-      unique:true
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     },
     code: {
-      type:DataTypes.STRING,
-      allowNUll:false,
-      unique:true
-    },
-    address: {
       type: DataTypes.STRING,
-      unique:true
+      unique: true,
+      allowNull: false
     },
-    cityid: {
+    address: DataTypes.STRING,
+    cityId: { // We define it here explicitly
       type: DataTypes.INTEGER,
-      allowNUll: false
-  }
-}, {
+      allowNull: false
+    }
+  }, {
     sequelize,
     modelName: 'Airport',
   });
