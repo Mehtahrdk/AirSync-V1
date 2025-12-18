@@ -9,8 +9,7 @@ const db = {};
 
 // --- HARDCODED CONNECTION (Fastest Fix) ---
 // PASTE YOUR TIDB STRING INSIDE THESE QUOTES:
-const connectionString = "mysql://34v8xStf22hVrvJ.root:eo3k0RH3tNucIo0n@http://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test"; 
-
+const connectionString = "mysql://34v8xStf22hVrvJ.root:eo3k0RH3tNucIo0n@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test";
 let sequelize;
 
 try {
