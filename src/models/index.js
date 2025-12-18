@@ -5,28 +5,28 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
 const db = {};
+
+// --- HARDCODED CONNECTION (Fastest Fix) ---
+// PASTE YOUR TIDB STRING INSIDE THESE QUOTES:
+const connectionString = "mysql://34v8xStf22hVrvJ.root:eo3k0RH3tNucIo0n@http://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test"; 
 
 let sequelize;
 
-// 1. CHECK FOR CLOUD DATABASE URL (Render/TiDB)
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'mysql',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false // Required for TiDB
-      }
-    },
-    logging: false
-  });
-} 
-// 2. FALLBACK TO LOCAL CONFIG
-else {
-  const config = require(__dirname + '/../config/config.json')[env];
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+try {
+    sequelize = new Sequelize(connectionString, {
+        dialect: 'mysql',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        },
+        logging: false
+    });
+    console.log("✅ Connection initialized with Hardcoded String");
+} catch (error) {
+    console.error("❌ Critical Database Config Error:", error);
 }
 
 fs
