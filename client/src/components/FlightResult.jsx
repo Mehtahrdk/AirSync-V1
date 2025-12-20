@@ -33,7 +33,7 @@ const FlightResult = ({ price, latency }) => {
                     'Content-Type': 'application/json',
                     'x-access-token': token
                 },
-                body: JSON.stringify({ flightId: "IND-101", seatNo: "1A" })
+                body: JSON.stringify({ flightId: 1, seatNo: "1A" })
             });
 
             const data = await response.json();
