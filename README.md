@@ -11,7 +11,18 @@ The primary goal was to architect a system capable of preventing race conditions
 
 ## 🏗️ System Architecture
 
-![System Architecture Diagram](./architecture-diagram.png)
+```mermaid
+graph TD;
+    Client[React Frontend] -->|REST API| Server[Node.js Backend];
+    Server -->|Read/Write Data| Database[(TiDB / MySQL)];
+    Server -->|Acquire Lock| Redis[(Redis Cache)];
+    
+    subgraph "High Concurrency Handling"
+    Server -- 1. Request Lock --> Redis;
+    Redis -- 2. Lock Granted --> Server;
+    Server -- 3. Update Inventory --> Database;
+    end
+```
 
 *> Note: The architecture separates concerns between a responsive React frontend and a robust Node.js backend layer. The critical booking logic relies on Redis as a high-speed locking mechanism before putting permanent data into a distributed MySQL database (TiDB).*
 
